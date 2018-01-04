@@ -31,29 +31,67 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const filteredInventors = inventors.filter(({ year }) => year >= 1500 && year < 1600);
+    console.table(filteredInventors);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    const fullNames = inventors.map(({ first, last }) => `${first} ${last}`);
+    console.table(fullNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const ordered = inventors.sort((a, b) => a.year - b.year);
+    console.table(ordered);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    const totalYears = inventors.reduce((years, { year, passed }) => years += passed - year, 0)
+    console.log(totalYears);
 
     // 5. Sort the inventors by years lived
+    const inventorsByYearsLived = inventors.sort((a, b) => {
+      const lastGuy = a.passed - a.year;
+      const nextGuy = b.passed - b.year;
+
+      return nextGuy - lastGuy;
+    })
+    console.table(inventorsByYearsLived);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    // const category = document.querySelector('.mw-category');
+    // const links = category.querySelectorAll('a');
+
+    // const de = [...links]
+    //   .map((link) => link.textContent)
+    //   .filter((name) => name.includes('de'));
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const alpha = people.sort((a, b) => {
+      const [lastA, firstA] = a.split(', ');
+      const [lastB, firstB] = b.split(', ');
+
+      return lastA > lastB ? 1 : -1;
+    });
+    console.table(alpha);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const sum = data.reduce((total, item) => {
+      if (total[item]) {
+        total[item] += 1;
+      } else {
+        total[item] = 1;
+      }
 
+      return total;
+    }, {});
+    console.table(sum);
   </script>
 </body>
 </html>
+ 
