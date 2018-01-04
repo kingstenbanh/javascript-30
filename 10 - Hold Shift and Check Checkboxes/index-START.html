@@ -99,6 +99,27 @@
   </div>
 
 <script>
+  const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+  let lastChecked;
+  let isInBetween = false;
+
+  function handleCheck(e) {
+    if (e.shiftKey && this.checked) {
+      checkboxes.forEach((checkbox) => {
+        if (checkbox === this || checkbox === lastChecked) {
+          isInBetween = !isInBetween;
+        }
+
+        if (isInBetween) {
+          checkbox.checked = true;
+        }
+      });
+    }
+
+    lastChecked = this;
+  }
+
+  checkboxes.forEach((checkbox) => checkbox.addEventListener('click', handleCheck));
 </script>
 </body>
 </html>
